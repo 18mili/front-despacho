@@ -46,6 +46,7 @@ jobs:
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
             docker pull 18mili/front-despacho:latest
             docker tag 18mili/front-despacho:latest front_despacho:latest
+            printf "BACKEND_HOST=%s\n" "${{ secrets.EC2_BACKEND_HOST }}" > .env
             docker compose down
             docker compose up -d --no-build
             docker image prune -f
