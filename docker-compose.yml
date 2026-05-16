@@ -11,8 +11,7 @@ services:
       - "80:80"
     environment:
       - NODE_ENV=production
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - BACKEND_HOST=${BACKEND_HOST}
     restart: unless-stopped
     networks:
       - frontend_network

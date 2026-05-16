@@ -26,10 +26,12 @@ RUN addgroup -g 1001 -S appgroup && \
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Copiar configuración de Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
 # Ajustar permisos para usuario no-root
 RUN chown -R appuser:appgroup /usr/share/nginx/html && \
+    chown -R appuser:appgroup /etc/nginx/conf.d && \
+    chown -R appuser:appgroup /etc/nginx/templates && \
     chown -R appuser:appgroup /var/cache/nginx && \
     chown -R appuser:appgroup /var/log/nginx && \
     touch /var/run/nginx.pid && \
